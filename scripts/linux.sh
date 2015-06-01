@@ -15,7 +15,7 @@ mk_ram_disk() {
   chmod 777 ${mount_point} > /dev/null
   sudo mount -t tmpfs -o size=${ramfs_size_mb}M tmpfs ${mount_point}/ > /dev/null
 
-  printf "{\"mountPoint\": \"%s\"}" ${mount_point}
+  printf %s ${mount_point//[[:blank:]]/}
 }
 
 rm_ram_disk() {

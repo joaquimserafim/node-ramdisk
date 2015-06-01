@@ -17,7 +17,7 @@ mk_ram_disk() {
   mkdir -p ${mount_point} > /dev/null
   mount -o noatime -t hfs ${ramdisk_dev} ${mount_point} > /dev/null
 
-  printf "{\"deviceNode\": \"%s\", \"mountPoint\": \"%s\"}" ${ramdisk_dev//[[:blank:]]/} ${mount_point}
+  printf %s ${mount_point//[[:blank:]]/}
 }
 
 rm_ram_disk() {
@@ -28,7 +28,7 @@ main() {
   if [ "$1" = "1" ]; then
     mk_ram_disk $2 $3
   else
-    rm_ram_disk $2 $3
+    rm_ram_disk $2
   fi
 }
 

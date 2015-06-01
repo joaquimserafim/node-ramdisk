@@ -3,7 +3,6 @@
 var format  = require('util').format
 var spawn   = require('child_process').spawn
 var debug   = require('debug')('node-ramdisk')
-var parse   = require('json-parse-safe')
 
 //
 //
@@ -28,8 +27,8 @@ function RamDisk (volume) {
     prc(file, cb)
   }
 
-  this.delete = function deleteDisk (fd, cb) {
-    var file = format(scripts, __dirname, os, 2, fd.mountPoint, fd.deviceNode)
+  this.delete = function deleteDisk (mount, cb) {
+    var file = format(scripts, __dirname, os, 2, mount)
     debug('uuid: %s :delete disk setup: %s', op, file)
     prc(file, cb)
   }
@@ -57,11 +56,18 @@ function RamDisk (volume) {
     function close (code) {
       debug('uuid: %s :exit code: %d', op, code)
       if (cb) {
-        var error = errorB.length ?
+        var args = []
+
+        args.push(errorB.length ?
           new Error(errorB.toString().replace(/\n/, '')) :
-          null
-        var res = parse(dataB.toString())
-        cb(error, res.value, code)
+          null)
+
+        if (cb.length === 3) {
+          args.push(dataB.length ? dataB.toString() : null)
+        }
+
+        args.push(code)
+        cb.apply(null, args)
       }
     }
   }

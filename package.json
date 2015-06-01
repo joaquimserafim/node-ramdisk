@@ -54,7 +54,6 @@
     "check-coverage"
   ],
   "dependencies": {
-    "debug": "^2.2.0",
-    "json-parse-safe": "^1.0.3"
+    "debug": "^2.2.0"
   }
 }

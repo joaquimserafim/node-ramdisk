@@ -20,9 +20,8 @@ describe('ramdisk on ' + process.platform, function() {
       expect(data).to.exist()
       expect(code).to.equal(0)
 
-      newDisk.delete(data, function(err1, data1, code1) {
+      newDisk.delete(data, function(err1, code1) {
         expect(err1).to.be.null()
-        expect(data1).to.be.undefined()
         expect(code1).to.equal(0)
         done()
       })
@@ -49,15 +48,13 @@ describe('ramdisk on ' + process.platform, function() {
       expect(data).to.exist()
       expect(code).to.equal(0)
 
-      newDisk.delete(data, function(err1, data1, code1) {
+      newDisk.delete(data, function(err1, code1) {
         expect(err1).to.be.null()
-        expect(data1).to.be.undefined()
         expect(code1).to.equal(0)
 
         // should return an error since the device don't exist no more
-        newDisk.delete(data, function(err2, data2, code2) {
+        newDisk.delete(data, function(err2, code2) {
           expect(err2).to.exist()
-          expect(data2).to.be.undefined()
           expect(code2).to.equal(1)
           done()
         })
@@ -75,7 +72,7 @@ describe('ramdisk on ' + process.platform, function() {
 
       newDisk.create(10, function(err1, data1, code1) {
         expect(err1).to.exist()
-        expect(data1).to.be.undefined()
+        expect(data1).to.be.null()
         expect(code1).to.equal(1)
         newDisk.delete(data, function() {done()})
       })
