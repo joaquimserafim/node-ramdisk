@@ -1,0 +1,56 @@
+{
+  "name": "node-ramdisk",
+  "version": "0.0.0",
+  "description": "create a ram disk with node.js",
+  "main": "index.js",
+  "files": [
+    "LICENSE",
+    "README.md",
+    "index.js"
+  ],
+  "scripts": {
+    "test": "lab -m 5000 -v -c test.js",
+    "check-coverage": "lab -m 5000 -t 100 -r html -o coverage.html test.js",
+    "open-coverage": "open coverage.html",
+    "jshint": "jshint -c .jshintrc *.js",
+    "code-style": "jscs -p google *.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/joaquimserafim/node-ramdisk.git"
+  },
+  "keywords": [
+    "mount",
+    "ram",
+    "disk"
+    "ramdisk",
+    "util"
+  ],
+  "author": "@joaquimserafim",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/joaquimserafim/node-ramdisk/issues"
+  },
+  "os": [
+    "darwin",
+    "linux"
+  ],
+  "homepage": "https://github.com/joaquimserafim/node-ramdisk",
+  "devDependencies": {
+    "code": "^1.4.0",
+    "jscs": "^1.13.1",
+    "jshint": "^2.7.0",
+    "lab": "^5.9.0",
+    "pre-commit": "^1.0.7"
+  },
+  "pre-commit": [
+    "jshint",
+    "code-style",
+    "test",
+    "check-coverage"
+  ],
+  "dependencies": {
+    "debug": "^2.2.0",
+    "json-parse-safe": "^1.0.3"
+  }
+}
