@@ -3,7 +3,6 @@
 set -e
 
 mk_ram_disk() {
-  local ramfs_size_mb=$1
   local mount_point=/tmp/${2}
 
   if EXISTS=`mount | grep ${mount_point}`; then
@@ -11,8 +10,8 @@ mk_ram_disk() {
     exit 1
   fi
 
-  ramfs_size_sectors=$(($ramfs_size_mb*1024*1024/512))
-  ramdisk_dev=`hdid -nomount ram://${ramfs_size_sectors}`
+  local ramfs_size_sectors=$(($1*1024*1024/512))
+  local ramdisk_dev=`hdid -nomount ram://${ramfs_size_sectors}`
 
   newfs_hfs -v 'ram disk' ${ramdisk_dev} > /dev/null
   mkdir -p ${mount_point} > /dev/null
@@ -22,8 +21,7 @@ mk_ram_disk() {
 }
 
 rm_ram_disk() {
-  hdiutil detach $2 -force > /dev/null
-  rm -rf $1 > /dev/null
+  diskutil eject $1 > /dev/null
 }
 
 main() {

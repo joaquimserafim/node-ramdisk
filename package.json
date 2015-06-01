@@ -6,7 +6,11 @@
   "files": [
     "LICENSE",
     "README.md",
-    "index.js"
+    "index.js",
+    "scripts"
+  ],
+  "directories": [
+    "scripts"
   ],
   "scripts": {
     "test": "lab -m 5000 -v -c test.js",
