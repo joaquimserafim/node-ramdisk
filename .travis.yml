@@ -11,3 +11,4 @@
  script: npm test
  before_install:
    - npm install -g npm@~1.4.6
+sudo: required
