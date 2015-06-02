@@ -4,10 +4,6 @@ var format  = require('util').format
 var spawn   = require('child_process').spawn
 var debug   = require('debug')('node-ramdisk')
 
-//
-//
-//
-
 module.exports = RamDisk
 
 function RamDisk (volume) {

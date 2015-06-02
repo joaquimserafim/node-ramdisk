@@ -24,6 +24,7 @@ return a `ramdisk` object
     -   **mount** - {string} the mounted block, in case of error is undefined
 
 ##### ramdisk#delete(volume[, callback(err, res)])
+>delete will eject the volume and remove the mount folder
 *   **mount** - {string} the mounted block
 *   **callback** {function}
     -   **err** - {Error} error message

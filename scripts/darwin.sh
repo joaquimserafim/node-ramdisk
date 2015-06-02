@@ -21,7 +21,8 @@ mk_ram_disk() {
 }
 
 rm_ram_disk() {
-  diskutil eject $1 > /dev/null
+  diskutil eject $1 -force > /dev/null
+  rm -rf $1 > /dev/null
 }
 
 main() {
