@@ -24,11 +24,12 @@ return a `ramdisk` object
     -   **mount** - {string} the mounted block, in case of error is undefined
 
 ##### ramdisk#delete(volume[, callback(err, res)])
->delete will eject the volume and remove the mount folder
 *   **mount** - {string} the mounted block
 *   **callback** {function}
     -   **err** - {Error} error message
     -   **res** - {string} return 'ok' in case of success, in case of error is undefined
+
+>Note: delete will eject the volume and remove the mount folder
 
 
 ## Usage
@@ -51,7 +52,7 @@ disk.create(100, function (err, mount) {
 })
 
 // when isn't needed then delete the disk
-disl.delete(volumePoint, function (err) {
+disk.delete(volumePoint, function (err) {
   if (err) {
     console.log(err)
   } else {
