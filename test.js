@@ -15,14 +15,13 @@ describe('ramdisk on ' + process.platform, function() {
   it('create a ram disk with 10MB', function(done) {
     var newDisk = ramdisk('disk0')
 
-    newDisk.create(10, function(err, data, code) {
+    newDisk.create(10, function(err, data) {
       expect(err).to.be.null()
       expect(data).to.exist()
-      expect(code).to.equal(0)
 
-      newDisk.delete(data, function(err1, code1) {
-        expect(err1).to.be.null()
-        expect(code1).to.equal(0)
+      newDisk.delete(data, function(err, res) {
+        expect(err).to.be.null()
+        expect(res).to.equal('ok')
         done()
       })
     })
@@ -31,10 +30,9 @@ describe('ramdisk on ' + process.platform, function() {
   it('methods should work without the callback', function(done) {
     var newDisk = ramdisk('disk1')
 
-    newDisk.create(10, function(err, data, code) {
+    newDisk.create(10, function(err, data) {
       expect(err).to.be.null()
       expect(data).to.exist()
-      expect(code).to.equal(0)
       newDisk.delete(data)
       setTimeout(done, 200)
     })
@@ -43,19 +41,18 @@ describe('ramdisk on ' + process.platform, function() {
   it('stderr', function(done) {
     var newDisk = ramdisk('disk2')
 
-    newDisk.create(10, function(err, data, code) {
+    newDisk.create(10, function(err, data) {
       expect(err).to.be.null()
       expect(data).to.exist()
-      expect(code).to.equal(0)
 
-      newDisk.delete(data, function(err1, code1) {
-        expect(err1).to.be.null()
-        expect(code1).to.equal(0)
+      newDisk.delete(data, function(err, res) {
+        expect(err).to.be.null()
+        expect(res).to.equal('ok')
 
         // should return an error since the device don't exist no more
-        newDisk.delete(data, function(err2, code2) {
-          expect(err2).to.exist()
-          expect(code2).to.equal(1)
+        newDisk.delete(data, function(err, res) {
+          expect(err).to.exist()
+          expect(res).to.be.undefined()
           done()
         })
       })
@@ -65,15 +62,13 @@ describe('ramdisk on ' + process.platform, function() {
   it('tries to create the same ramdisk twice should fail', function(done) {
     var newDisk = ramdisk('disk3')
 
-    newDisk.create(10, function(err, data, code) {
+    newDisk.create(10, function(err, data) {
       expect(err).to.be.null()
       expect(data).to.exist()
-      expect(code).to.equal(0)
 
-      newDisk.create(10, function(err1, data1, code1) {
-        expect(err1).to.exist()
-        expect(data1).to.be.null()
-        expect(code1).to.equal(1)
+      newDisk.create(10, function(err, res) {
+        expect(err).to.exist()
+        expect(res).to.be.undefined()
         newDisk.delete(data, function() {done()})
       })
     })

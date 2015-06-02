@@ -56,18 +56,15 @@ function RamDisk (volume) {
     function close (code) {
       debug('uuid: %s :exit code: %d', op, code)
       if (cb) {
-        var args = []
-
-        args.push(errorB.length ?
-          new Error(errorB.toString().replace(/\n/, '')) :
-          null)
-
-        if (cb.length === 3) {
-          args.push(dataB.length ? dataB.toString() : null)
+        if (code !== 0) {
+          var error = new Error(errorB.toString().replace(/\n/, ''))
+          cb(error)
+        } else {
+          var res = dataB.length ?
+            dataB.toString() :
+            'ok'
+          cb(null, res)
         }
-
-        args.push(code)
-        cb.apply(null, args)
       }
     }
   }

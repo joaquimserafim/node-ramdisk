@@ -17,18 +17,17 @@ return a `ramdisk` object
 #### ramdisk(volumeName) 
 `var disk = ramdisk('my_ramdisk')`
 
-##### ramdisk#create(size[, callback(err, data, code)])
+##### ramdisk#create(size[, callback(err, mount)])
 *   **size** - {integer} the size of the volume in MB
 *   **callback** - {function}
     -   **err**   - {Error} error message
-    -   **mount** - {string} the mounted block (in case of error is undefined)
-    -   **code**  - {integer} the exit code (0 should means successful)
+    -   **mount** - {string} the mounted block, in case of error is undefined
 
-##### ramdisk#delete(volume[, callback(err, code)])
+##### ramdisk#delete(volume[, callback(err, res)])
 *   **mount** - {string} the mounted block
 *   **callback** {function}
-    -   **err**  - {Error} error message
-    -   **code** - {integer} the exit code (0 should means successful)
+    -   **err** - {Error} error message
+    -   **res** - {string} return 'ok' in case of success, in case of error is undefined
 
 
 ## Usage
@@ -41,14 +40,22 @@ var disk = ramdisk('my_ramdisk')
 var volumePoint
 
 // create a disk with 100MB of size
-disk.create(100, function (err, mount, code) {
-  // err, data, code
-  volumePoint = mount
+disk.create(100, function (err, mount) {
+  if (err) {
+    console.log(err)
+  } else {
+    volumePoint = mount
+    console.log(mount)
+  }
 })
 
 // when isn't needed then delete the disk
-disl.delete(volumePoint, function (err, code) {
-  // err, code
+disl.delete(volumePoint, function (err) {
+  if (err) {
+    console.log(err)
+  } else {
+    console.log('ok')
+  }
 })
 ```
 
