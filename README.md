@@ -52,13 +52,16 @@ disl.delete(volumePoint, function (err, code) {
 })
 ```
 
+### Debug
+
+`DEBUG=node-ramdisk ...`
 
 ### Supported OS
 
 *   darwin
 *   linux
 
-## Development
+### Development
 
 ##### this projet has been set up with a precommit that forces you to follow a code style, no jshint issues and 100% of code coverage before commit
 
