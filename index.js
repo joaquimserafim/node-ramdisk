@@ -4,26 +4,22 @@ var format  = require('util').format
 var spawn   = require('child_process').spawn
 var debug   = require('debug')('node-ramdisk')
 
-module.exports = RamDisk
+module.exports = ramdisk
 
-function RamDisk (volume) {
-  if (!(this instanceof RamDisk)) {
-    return new RamDisk(volume)
-  }
-
+function ramdisk (volume) {
   var op = uuid()
   debug('uuid: %s :volume: %s', op, volume)
 
   var os = process.platform
   var scripts = '%s/scripts/%s.sh'
 
-  this.create = function createDisk (size, cb) {
+  var createDisk = function createDisk (size, cb) {
     var file = format(scripts, __dirname, os, 1, size, volume)
     debug('uuid: %s :create disk setup: %s', op, file)
     prc(file, cb)
   }
 
-  this.delete = function deleteDisk (mount, cb) {
+  var deleteDisk = function deleteDisk (mount, cb) {
     var file = format(scripts, __dirname, os, 2, mount)
     debug('uuid: %s :delete disk setup: %s', op, file)
     prc(file, cb)
@@ -56,16 +52,17 @@ function RamDisk (volume) {
           var error = new Error(errorB.toString().replace(/\n/, ''))
           cb(error)
         } else {
-          var res = dataB.length ?
-            dataB.toString() :
-            'ok'
+          var res = dataB.length ? dataB.toString() : 'ok'
           cb(null, res)
         }
       }
     }
   }
 
-  return this
+  return {
+    create: createDisk,
+    delete: deleteDisk
+  }
 }
 
 function uuid () {

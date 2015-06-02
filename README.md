@@ -67,8 +67,8 @@ disk.delete(volumePoint, function (err) {
 
 ### Supported OS
 
-*   darwin
-*   linux
+*   **darwin** *(bad performance - is taking around 1 sec. to create the disk in my macbook pro mid 2012)*
+*   **linux** *(good performance - 20/30 mls to create the disk in a vagrant vm with few resources)*
 
 ### Development
 
